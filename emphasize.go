@@ -18,6 +18,6 @@ func main() {
 	if err := dc.LoadFontFace("/Library/Fonts/Arial Unicode.ttf", 96); err != nil {
 		panic(err)
 	}
-	dc.DrawStringAnchored(sentence, width/2, height/2, 0.5, 0.5)
+	dc.DrawStringAnchored(sentence, width/2, height-(height/6), 0.5, 0.5)
 	_ = dc.SavePNG("out.png")
 }
