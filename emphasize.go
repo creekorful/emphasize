@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	quote    = "At least there's stars in the sky."
+	quote    = "At least there are stars in the sky."
 	fontPath = "/Library/Fonts/Arial Unicode.ttf"
 )
 
