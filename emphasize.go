@@ -20,7 +20,7 @@ func main() {
 
 	dc := gg.NewContextForImage(im)
 
-	if err := applyNoise(dc, 32.0+128.0); err != nil {
+	if err := applyNoise(dc); err != nil {
 		log.Fatal(err)
 	}
 
@@ -33,13 +33,14 @@ func main() {
 	}
 }
 
-func applyNoise(ctx *gg.Context, sigma float64) error {
+// TODO: real implementation and not only set alpha channel
+func applyNoise(ctx *gg.Context) error {
 	width, height := ctx.Width(), ctx.Height()
 
 	for x := 0; x < width; x++ {
 		for y := 0; y < height; y++ {
 			// Gaussian noise
-			noise := uint32(rand.NormFloat64() * sigma)
+			noise := uint32(rand.NormFloat64()*32.0 + 128.0)
 
 			r, g, b, _ := ctx.Image().At(x, y).RGBA()
 
@@ -55,12 +56,11 @@ func drawQuote(ctx *gg.Context, quote string) error {
 	width, height := float64(ctx.Width()), float64(ctx.Height())
 
 	// TODO: compute font points based on image size and text length (default 96)
-	if err := ctx.LoadFontFace(fontPath, 56); err != nil {
+	if err := ctx.LoadFontFace(fontPath, 48); err != nil {
 		return err
 	}
 
 	ctx.SetRGB255(241, 196, 12)
-
 	ctx.DrawStringAnchored(quote, width/2, height-(height/10), 0.5, 0.5)
 
 	return nil
